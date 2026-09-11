@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.dariobf.per-display-workspaces",
+  "name": "Per-display Workspaces",
+  "version": "1.0.0",
+  "author": "DarioBF",
+  "description": "Each monitor's bar shows only the workspaces on that monitor and marks the one it is showing. Drop-in replacement for the built-in Workspaces widget; no Hyprland changes needed.",
+  "license": "MIT",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Workspaces.qml"
+  },
+  "barWidget": {
+    "displayName": "Workspaces (per display)",
+    "description": "Workspace indicators for the monitor each bar is on",
+    "category": "Compositor",
+    "allowMultiple": false,
+    "defaultSection": "left"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.workspaces"
+  }
+}
