@@ -33,6 +33,42 @@ shown; special workspaces (scratchpad) are not.
 - Omarchy 4 (Quattro) with the Omarchy shell bar.
 - No other dependencies.
 
+## Omarchy 4.5 and later
+
+Omarchy 4.5 gives every monitor its own block of ten workspace ids (1–10,
+11–20, 21–30, …), and its built-in Workspaces widget already shows each
+monitor's own workspaces. If you are happy with that scheme, you don't need
+this widget.
+
+This widget is for a global numbering, where each number is one workspace that
+your rules or scripts place on a fixed monitor. On 4.5, Omarchy reconciles
+workspaces into its blocks on every start, config reload and monitor change:
+it renumbers workspaces (for example 1–6 to 21+ on a laptop panel) and moves
+them to the monitor that owns their block, so ids above 10 appear that this
+widget doesn't show. To keep a global numbering on 4.5, add both of these to
+your Hyprland config, after Omarchy's defaults:
+
+```lua
+-- Stop Omarchy's per-monitor reconciler. Its event handlers look this function
+-- up when they run, so a no-op leaves workspace placement to your own rules.
+o.workspaces.reconcile = function() end
+
+-- SUPER + 1…0 now go to a slot in the focused monitor's block. Put back the
+-- 4.0 bindings, where each number is one workspace.
+for workspace = 1, 10 do
+  local key = "code:" .. tostring(workspace + 9)
+  o.rebind("SUPER + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
+  o.rebind("SUPER + SHIFT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
+  o.rebind("SUPER + SHIFT + ALT + " .. key, "Move window silently to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace), follow = false }))
+end
+```
+
+`o.workspaces.reconcile` is internal to Omarchy, not a documented setting, so
+check it still exists after each `omarchy update`. Omarchy 4.5 also moved
+`SUPER + SHIFT + ALT + arrows` (move workspace to monitor) onto its blocks; to
+restore those, rebind them to `hl.dsp.workspace.move({ monitor = "l" })` and
+the matching `r`, `u` and `d`.
+
 ## Install
 
 ```bash

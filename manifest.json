@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.dariobf.per-display-workspaces",
   "name": "Per-display Workspaces",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "DarioBF",
   "description": "Each monitor's bar shows only the workspaces on that monitor and marks the one it is showing. Drop-in replacement for the built-in Workspaces widget; no Hyprland changes needed.",
   "license": "MIT",
